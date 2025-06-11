@@ -1,0 +1,35 @@
+{
+    "name": "super-admin-ext/scheduling",
+    "description": "Task scheduling extension for super-admin",
+    "type": "library",
+    "keywords": ["super-admin", "task", "Scheduling"],
+    "homepage": "https://github.com/super-admin-org/scheduling",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "super-admin",
+            "email": "info@super-admin.org"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "super-admin-org/super-admin": "~1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.0",
+        "laravel/laravel": "~5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "SuperAdmin\\Admin\\Scheduling\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SuperAdmin\\Admin\\Scheduling\\SchedulingServiceProvider"
+            ]
+
+        }
+    }
+}
