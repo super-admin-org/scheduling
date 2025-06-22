@@ -1,5 +1,5 @@
 {
-    "name": "super-admin-ext/scheduling",
+    "name": "super-admin-org/scheduling",
     "description": "Task scheduling extension for super-admin",
     "type": "library",
     "keywords": ["super-admin", "task", "Scheduling"],
@@ -13,11 +13,11 @@
     ],
     "require": {
         "php": ">=7.0.0",
-        "super-admin-org/super-admin": "~1.0"
+        "super-admin-org/super-admin": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "~6.0",
-        "laravel/laravel": "~5.5"
+        "phpunit/phpunit": "=>6.0",
+        "laravel/laravel": "=>5.5"
     },
     "autoload": {
         "psr-4": {

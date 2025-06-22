@@ -2,8 +2,8 @@ Scheduling task manager for super-admin
 ============================
 
 [![StyleCI](https://styleci.io/repos/457982378/shield?branch=main)](https://styleci.io/repos/457982378)
-[![Packagist](https://img.shields.io/github/license/super-admin-org/scheduling.svg?maxAge=2592000&style=flat-square&color=brightgreen)](https://packagist.org/packages/super-admin-ext/scheduling)
-[![Total Downloads](https://img.shields.io/packagist/dt/super-admin-ext/scheduling.svg?style=flat-square&color=brightgreen)](https://packagist.org/packages/super-admin-admin-ext/scheduling)
+[![Packagist](https://img.shields.io/github/license/super-admin-org/scheduling.svg?maxAge=2592000&style=flat-square&color=brightgreen)](https://packagist.org/packages/super-admin-org/scheduling)
+[![Total Downloads](https://img.shields.io/packagist/dt/super-admin-org/scheduling.svg?style=flat-square&color=brightgreen)](https://packagist.org/packages/super-admin-admin-ext/scheduling)
 [![Pull request welcome](https://img.shields.io/badge/pr-welcome-green.svg?style=flat-square&color=brightgreen)]()
 
 
@@ -18,7 +18,7 @@ A web interface for manage task scheduling in laravel.
 ## Installation
 
 ```
-$ composer require super-admin-ext/scheduling
+$ composer require super-admin-org/scheduling
 
 $ php artisan admin:import scheduling
 ```
