@@ -7,7 +7,12 @@
         "task",
         "Scheduling"
     ],
-    "homepage": "https://github.com/super-admin-org/scheduling",
+    "homepage": "https://super-admin.org/laravel/extension-scheduling/",
+    "support": {
+        "docs": "https://super-admin.org/laravel/extension-scheduling/",
+        "issues": "https://github.com/super-admin-org/scheduling/issues",
+        "source": "https://github.com/super-admin-org/scheduling"
+    },
     "license": "MIT",
     "authors": [
         {
@@ -18,7 +23,7 @@
     "require": {
         "php": "^8.0",
         "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.0|^13.0",
-        "super-admin-org/super-admin": "^1.0"
+        "super-admin-org/super-admin": "^1.0|^2.0"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
