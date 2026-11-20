@@ -5,6 +5,7 @@ namespace SuperAdmin\Admin\Scheduling;
 use Illuminate\Http\Request;
 use SuperAdmin\Admin\Facades\Admin;
 use SuperAdmin\Admin\Layout\Content;
+use Throwable;
 
 class SchedulingController
 {
@@ -22,32 +23,43 @@ class SchedulingController
 
             $content->body(view('super-admin-scheduling::index', [
                 'events' => $scheduling->getTasks(),
+                'canRun' => Scheduling::canRun(),
             ]));
         });
     }
 
     /**
-     * @param Request $request
-     *
-     * @return array
+     * @return array{status: bool, message: string, data: string, meta?: array<string, mixed>}
      */
     public function runEvent(Request $request)
     {
-        $scheduling = new Scheduling();
+        if (! Scheduling::canRun()) {
+            return [
+                'status'  => false,
+                'message' => 'failed',
+                'data'    => 'Running tasks from the panel is disabled (admin.extensions.scheduling.allow_run).',
+            ];
+        }
+
+        $id = (string) $request->input('id', '');
 
         try {
-            $output = $scheduling->runTask($request->get('id'));
+            $result = (new Scheduling())->runTask($id);
 
             return [
-                'status'    => true,
-                'message'   => 'success',
-                'data'      => $output,
+                'status'  => true,
+                'message' => 'success',
+                'data'    => $result['output'],
+                'meta'    => [
+                    'duration' => $result['duration'],
+                    'exitCode' => $result['exitCode'],
+                ],
             ];
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             return [
-                'status'    => false,
-                'message'   => 'failed',
-                'data'      => $e->getMessage(),
+                'status'  => false,
+                'message' => 'failed',
+                'data'    => $e->getMessage(),
             ];
         }
     }

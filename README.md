@@ -1,52 +1,64 @@
-Scheduling task manager for super-admin
-============================
+Scheduling task manager for Super Admin
+=======================================
 
-[![StyleCI](https://styleci.io/repos/457982378/shield?branch=main)](https://styleci.io/repos/457982378)
-[![Packagist](https://img.shields.io/github/license/super-admin-org/scheduling.svg?maxAge=2592000&style=flat-square&color=brightgreen)](https://packagist.org/packages/super-admin-org/scheduling)
-[![Total Downloads](https://img.shields.io/packagist/dt/super-admin-org/scheduling.svg?style=flat-square&color=brightgreen)](https://packagist.org/packages/super-admin-admin-ext/scheduling)
-[![Pull request welcome](https://img.shields.io/badge/pr-welcome-green.svg?style=flat-square&color=brightgreen)]()
+Lists the tasks of Laravel's scheduler (cron expression in plain words, next run, last run, flags) and runs a task on demand from the admin panel.
 
+**Documentation:** https://super-admin.org/laravel/extension-scheduling/
 
-A web interface for manage task scheduling in laravel.
-
-[Documentation](http://super-admin.org/docs/en/extension-scheduling)
-
-## Screenshot
-
-![extention-schedualing](https://user-images.githubusercontent.com/86517067/153514589-e6204239-d227-483a-bf4d-c5da2720f038.png)
+Requirements: PHP 8.0+, Laravel 8 – 13, Super Admin 1.x.
 
 ## Installation
 
+```bash
+composer require super-admin-org/scheduling
+php artisan admin:import scheduling
 ```
-$ composer require super-admin-org/scheduling
 
-$ php artisan admin:import scheduling
-```
+Open `/admin/scheduling`.
 
-Open `http://your-host/admin/scheduling`.
+## Defining tasks
 
-Try to add a scheduling task in `app/Console/Kernel.php` like this:
+Laravel 11 and newer, `routes/console.php`:
 
 ```php
-class Kernel extends ConsoleKernel
-{
-    protected function schedule(Schedule $schedule)
-    {
-        $schedule->command('inspire')->everyTenMinutes();
+use Illuminate\Support\Facades\Schedule;
 
-        $schedule->command('route:list')->dailyAt('02:00');
-    }
-}
-
+Schedule::command('backup:run')->dailyAt('02:00')->description('Nightly backup');
 ```
 
-And you can find these tasks in scheduling panel.
+Laravel 8 – 10, `app/Console/Kernel.php`:
 
-Debugging
-------------
-If console shows errors like: `sh: : command not found`
-Try adding this your .env file: `PHP_BINARY=/path/to/your/php/binaray/`
+```php
+protected function schedule(Schedule $schedule)
+{
+    $schedule->command('backup:run')->dailyAt('02:00')->description('Nightly backup');
+}
+```
+
+Both are listed. The scheduler itself still needs the cron entry `* * * * * php artisan schedule:run`.
+
+## Configuration
+
+```php
+// config/admin.php
+'extensions' => [
+    'scheduling' => [
+        'allow_run' => true,   // false hides the Run buttons (recommended in production)
+    ],
+],
+```
+
+**Last run** shows the latest run from the panel and from `schedule:run`, kept in the cache for 30 days.
+
+If the output shows `sh: : command not found`, set `PHP_BINARY=/path/to/php` in `.env`.
+
+## Tests
+
+```bash
+composer install
+composer test
+```
 
 License
-------------
+-------
 Licensed under [The MIT License (MIT)](LICENSE).
